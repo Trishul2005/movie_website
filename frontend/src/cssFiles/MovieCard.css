@@ -1,0 +1,42 @@
+.movie-card {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center;    /* Center contents horizontally */
+  min-width: 180px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  padding: 8px;           /* Add some padding */
+  background-color: #111; /* Optional: background color for contrast */
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.movie-poster {
+  height: auto;
+  width: 300px;
+  border-radius: 8px;
+  margin-bottom: 10px; /* Space below the image */
+  cursor: pointer; 
+}
+
+.movie-title-watchlist {
+  background-color: #00bcd4;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;         /* Full width of the card */
+  max-width: 180px;    /* Match card width */
+  transition: background-color 0.3s ease;
+}
+
+.movie-title-watchlist:hover {
+  background-color: #0097a7;
+}

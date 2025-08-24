@@ -1,0 +1,85 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #2e2a72, #00b4db);
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login-left h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.login-left p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+.login-illustration {
+  width: 100%;
+  max-width: 400px;
+  margin-top: auto;
+}
+
+.login-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.login-form input {
+  margin-top: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.login-form button {
+  margin-top: 30px;
+  padding: 14px;
+  font-size: 1rem;
+  background: #2e2a72;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-form button:hover {
+  background: #1b1855;
+}
+
+.register-link {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+.register-link a {
+  color: #2e2a72;
+  text-decoration: none;
+  font-weight: bold;
+}

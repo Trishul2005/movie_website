@@ -1,0 +1,313 @@
+.wl-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical centering */
+  align-items: center;      /* horizontal centering */
+  
+  min-height: 100vh;        /* fill viewport height so vertical centering works */
+  padding: 2rem;
+  
+  margin: 0 auto;           /* center container horizontally if needed */
+  box-sizing: border-box;   /* include padding in width calculations */
+
+  background: linear-gradient(135deg, #c4d2f9, #ba9ee7); /* Gradient background */
+}
+
+.wl-header {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* left | center | right */
+  padding: 0.5rem 1rem;
+}
+
+.wl-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wl-right-placeholder {
+  flex: 0 0 120px; /* fixed width for left & right, same size */
+}
+
+.wl-title {
+  flex: 1;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.wl-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.wl-metadata-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  gap: 1rem;              /* space between boxes */
+}
+
+.wl-data-container {
+  flex: 1;                 /* each box takes equal space */
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 25px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.wl-data-container:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* SEARCH BAR */
+
+.wl-search-container {
+  max-width: 1400px;
+  width: 96%;
+  margin: 2rem 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.wl-search-container input {
+  width: 100%;                   /* take full width of container */
+  padding: 0.8rem 1rem;          /* padding inside input */
+  border: none;                  /* remove default border */
+  border-radius: 20px;           /* rounded edges like container */
+  background: rgba(255, 255, 255, 0.2);  /* frosted glass style */
+  color: #fff;                   /* text color */
+  font-size: 1rem;
+  outline: none;                 /* remove default focus outline */
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); /* subtle inner shadow */
+  transition: all 0.3s ease;
+}
+
+.wl-search-container input::placeholder {
+  color: rgba(255,255,255,0.7); /* lighter placeholder text */
+}
+
+.wl-search-container input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 8px rgba(255,255,255,0.5); /* subtle glow on focus */
+}
+
+/* FILTERS */
+
+.wl-filter-container {
+  max-width: 1400px;
+   width: 96%;
+
+    display: flex;            /* flex inside the box */
+  flex-direction: row;   /* stack h2 and p vertically */
+  justify-content: center;  /* vertical centering */
+  align-items: center;      /* horizontal centering */
+  
+  
+  
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  padding: 1rem;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.wl-filter-container button {
+  flex: 1;                 /* each button fills equal space */
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wl-filter-container button:hover {
+  background-color: #5500ff; /* Highlight color */
+  color: white;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+.wl-filter-btn.active {
+  background-color: #5500ff; /* Highlight color */
+  color: white;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+/* MOVIE CARDS */
+
+.wl-movie-cards-container {
+  display: flex;                 /* horizontal layout */
+  flex-wrap: wrap;               /* wrap to next line on small screens */
+  gap: 1.5rem;                   /* space between cards */
+  justify-content: center;       /* center cards in container */
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.wl-movie-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;                  /* fixed width for cards */
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 25px;
+  padding: 1rem;
+  text-align: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.wl-movie-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
+}
+
+.wl-movie-poster {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.wl-movie-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.3rem 0;
+  
+  display: block;
+  max-width: 100%;           /* never exceed card width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;        /* centers the title */
+}
+
+.wl-movie-info {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.wl-movie-release {
+  flex: 70; /* 70% */
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.wl-movie-rating {
+  flex: 3; /* 30% */
+  margin: 0;
+  text-align: right; /* align rating to the right */
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.wl-movie-watch-status {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.wl-movie-watch-status:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+.wl-movie-remove {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255,50,50,0.6);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wl-no-movies {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.wl-movie-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wl-movie-watch-status {
+  flex: 109; /* 70% */
+}
+
+.wl-movie-remove {
+  flex: 3; /* 30% */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff4d4f; /* red for delete */
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.wl-movie-remove:hover {
+  transform: scale(1.2);
+}

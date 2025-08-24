@@ -1,0 +1,22 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Homepage from "./pages/homepage/Homepage.jsx";
+import LoginPage from "./pages/login/LoginPage.jsx";
+import MovieDetails from "./pages/detailedView/MovieDetails.jsx"; // You need to create this
+import TempLogin from "./pages/login/TempLogin.jsx"; // Temporary login page
+import Watchlist from "./pages/watchlist/Watchlist.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/:mediaType/:id" element={<MovieDetails />} />
+        <Route path="/" element={<TempLogin />} />
+        <Route path="/watchlist" element={<Watchlist />}/>
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);
