@@ -30,3 +30,7 @@ app.get('/', (req, res) => {
 
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
+
+// chatbot routes
+const chatbotRoutes = require('./routes/chatbot');
+app.use('/api/chatbot', chatbotRoutes);
