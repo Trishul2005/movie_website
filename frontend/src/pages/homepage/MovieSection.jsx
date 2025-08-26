@@ -48,7 +48,7 @@ function MovieSection(user) {
   const queryMovies = async () => {
     setLoading(true);
     try {
-      const query = "disney movies for little kids";
+      const query = "anime about pirates going on an adventure to find treasure";
       const res = await fetch("/api/chatbot/query-movies", {
         method: "POST",
         headers: {
@@ -59,7 +59,15 @@ function MovieSection(user) {
 
       const data = await res.json();
       console.log("Query results:", data);
-      alert(`✅ Check console for query results`);
+
+      const res2 = await fetch("/api/chatbot/rag-response", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query, movies_json: data }),
+      });
+      const data2 = await res2.json();
+      console.log("RAG response:", data2.recommendations);
+      return data2.recommendations;
     } catch (err) {
       console.error(err);
       alert("❌ Failed to query movies");
@@ -81,19 +89,13 @@ function MovieSection(user) {
       <button
         onClick={queryMovies}
         style={{ marginBottom: "20px", padding: "10px 20px" }}
-        >
+      >
         {loading ? "Querying..." : "Query Movies"}
       </button>
 
       <MovieCarousel
         title="Trending"
         fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`}
-        user={user}
-      />
-
-      <MovieCarousel
-        title="Trending"
-        fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=1`}
         user={user}
       />
 

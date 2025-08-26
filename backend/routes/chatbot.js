@@ -2,6 +2,11 @@ const express = require("express");
 const { OpenAIEmbeddings } = require("@langchain/openai");
 const { Pinecone } = require("@pinecone-database/pinecone");
 
+const OpenAI = require("openai");
+const client = new OpenAI(
+  apiKey = process.env.OPENAI_API_KEY,
+);
+
 const router = express.Router();
 
 // setup pinecone client
@@ -119,5 +124,61 @@ router.post("/query-movies", async (req, res) => {
     res.status(500).json({ error: "Query failed" });
   }
 });
+
+// RAG response
+router.post("/rag-response", async (req, res) => {
+  try {
+    const { query, movies_json } = req.body;
+
+    if (!movies_json || movies_json.length === 0) {
+      return res.status(400).json({ error: "No movies provided for RAG." });
+    }
+
+    // Convert the top results into a readable list for the LLM
+    const moviesList = movies_json.map((m, idx) => {
+      const title = m.metadata.title || m.metadata.name || "Unknown Title";
+      const year = (m.metadata.release_date || m.metadata.first_air_date || "").split("-")[0] || "Unknown Year";
+      const overview = m.metadata.overview || "No description available.";
+      const genre = m.metadata.genre_ids ? m.metadata.genre_ids.join(", ") : "Unknown";
+      return `${idx + 1}. ${title} (${year}) - ${overview} [Genres: ${genre}]`;
+    }).join("\n");
+
+    const prompt = `
+You are a movie recommendation assistant.
+The user asked: "${query}"
+
+Here are the top results from the database:
+${moviesList}
+
+⚠️ Important: Recommend only from the movies listed above. 
+Suggest 3–5 movies that best match the query. 
+Answer conversationally, highlight why each is a fit, 
+and include title + release year.
+`;
+
+    // call OpenAI
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You recommend movies based only on the search results provided." },
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.7
+    });
+
+    const answer = completion.choices[0].message.content;
+
+    res.json({
+      success: true,
+      query,
+      recommendations: answer
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "RAG response failed" });
+  }
+});
+
 
 module.exports = router;
