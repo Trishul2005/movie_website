@@ -94,4 +94,29 @@ router.post("/embed-movies", async (req, res) => {
 
 });
 
+
+// query route to get similar movies from Pinecone
+router.post("/query-movies", async (req, res) => {
+  try {
+    const { query, topK = 5 } = req.body;
+
+    // embed the user query
+    const queryVector = await embeddings.embedQuery(query);
+
+    // query Pinecone
+    const searchResponse = await index.query({
+      vector: queryVector,
+      topK,
+      includeMetadata: true,
+    });
+
+    // return the matches
+    res.json(searchResponse.matches);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Query failed" });
+  }
+});
+
 module.exports = router;

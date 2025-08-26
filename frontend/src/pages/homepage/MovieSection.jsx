@@ -44,14 +44,45 @@ function MovieSection(user) {
     }
   };
 
+  // tempory function to query pinecone
+  const queryMovies = async () => {
+    setLoading(true);
+    try {
+      const query = "disney movies for little kids";
+      const res = await fetch("/api/chatbot/query-movies", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query, topK: 5 }),
+      });
+
+      const data = await res.json();
+      console.log("Query results:", data);
+      alert(`✅ Check console for query results`);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to query movies");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
-      <button
+      {/* <button
         onClick={embedMovies}
         disabled={loading}
         style={{ marginBottom: "20px", padding: "10px 20px" }}
       >
         {loading ? "Embedding..." : "Embed Trending Movies"}
+      </button> */}
+
+      <button
+        onClick={queryMovies}
+        style={{ marginBottom: "20px", padding: "10px 20px" }}
+        >
+        {loading ? "Querying..." : "Query Movies"}
       </button>
 
       <MovieCarousel
