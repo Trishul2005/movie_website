@@ -23,17 +23,18 @@ router.post("/embed-movies", async (req, res) => {
 
   try {
     const movies = req.body.movies; // expects an array of movie objects
+    const media = req.body.media || "movie"; // default to movie, can be "tv" as well
 
     const upserts = await Promise.all(
         movies.map(async (movie) => {
-            const vectorId = `${movie.id}_${movie.media_type}`;
+            const vectorId = `${movie.id}_${media}`; // unique ID for each vector
             const movieText = `${movie.title}\n${movie.overview}`;
             const vector = await embeddings.embedQuery(movieText);
 
             // Convert any array fields in metadata to strings
             let metadata = {};
 
-            if (movie.media_type === "movie") {
+            if (media === "movie") {
                 metadata = {
                     ...movie,
                     adult: movie.adult || false,
@@ -41,7 +42,7 @@ router.post("/embed-movies", async (req, res) => {
                     backdrop_path: movie.backdrop_path || "",
                     genre_ids: movie.genre_ids ? movie.genre_ids?.map(String) : [],
                     id: movie.id || 0,
-                    media_type: movie.media_type || "movie",
+                    media_type: "movie",
                     original_language: movie.original_language || "",
                     original_title: movie.original_title || "",
                     overview: movie.overview || "",
@@ -62,7 +63,7 @@ router.post("/embed-movies", async (req, res) => {
                   first_air_date: movie.first_air_date || "",
                   genre_ids: movie.genre_ids ? movie.genre_ids?.map(String) : [],
                   id: movie.id || 0,
-                  media_type: movie.media_type || "tv",
+                  media_type: "tv",
                   name: movie.name || "",
                   origin_country: movie.origin_country || [],
                   original_language: movie.original_language || "",

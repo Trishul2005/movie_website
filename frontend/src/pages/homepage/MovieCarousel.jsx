@@ -54,6 +54,7 @@ function MovieCarousel( {title, fetchURL, genre, user} ) {
             else {
                 const response = await fetch(fetchURL) // API call
                 const data = await response.json(); // converting data to json format
+                console.log("Movie Carousel data:", data);
                 setMovies(data.results) // setting movies to hold the API call results
             }
 

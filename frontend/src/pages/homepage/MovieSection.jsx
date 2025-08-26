@@ -13,12 +13,12 @@ function MovieSection(user) {
   const embedMovies = async () => {
     setLoading(true);
     try {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 10; i++) {
         console.log("Embedding movies... ", i);
 
         // 1️⃣ Fetch trending movies from TMDB
         const res = await fetch(
-          `${BASE_URL}/tv/top_rated?api_key=${API_KEY}&page=${i + 1}`
+          `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=${i + 1}`
         );
         const data = await res.json();
 
@@ -28,7 +28,7 @@ function MovieSection(user) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ movies: data.results }), // data.results is array of movie objects
+          body: JSON.stringify({ movies: data.results, media: "movie" }), // data.results is array of movie objects
         });
 
         const result = await embedRes.json();
@@ -93,7 +93,7 @@ function MovieSection(user) {
 
       <MovieCarousel
         title="Trending"
-        fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&with_genres=16&page=13`}
+        fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=1`}
         user={user}
       />
 
