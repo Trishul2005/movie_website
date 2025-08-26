@@ -31,10 +31,50 @@ router.post("/embed-movies", async (req, res) => {
             const vector = await embeddings.embedQuery(movieText);
 
             // Convert any array fields in metadata to strings
-            const metadata = {
-                ...movie,
-                genre_ids: movie.genre_ids?.map(String), // convert numbers to strings
-            };
+            let metadata = {};
+
+            if (movie.media_type === "movie") {
+                metadata = {
+                    ...movie,
+                    adult: movie.adult || false,
+                    first_air_date: movie.first_air_date || "",
+                    backdrop_path: movie.backdrop_path || "",
+                    genre_ids: movie.genre_ids ? movie.genre_ids?.map(String) : [],
+                    id: movie.id || 0,
+                    media_type: movie.media_type || "movie",
+                    original_language: movie.original_language || "",
+                    original_title: movie.original_title || "",
+                    overview: movie.overview || "",
+                    popularity: movie.popularity || 0,
+                    poster_path: movie.poster_path || "",
+                    release_date: movie.release_date || "",
+                    title: movie.title || "",
+                    video: movie.video || false,
+                    vote_average: movie.vote_average || 0,
+                    vote_count: movie.vote_count || 0,
+                };
+            }
+            else {
+              metadata = {
+                  ...movie,
+                  adult: movie.adult || false,
+                  backdrop_path: movie.backdrop_path || "",
+                  first_air_date: movie.first_air_date || "",
+                  genre_ids: movie.genre_ids ? movie.genre_ids?.map(String) : [],
+                  id: movie.id || 0,
+                  media_type: movie.media_type || "tv",
+                  name: movie.name || "",
+                  origin_country: movie.origin_country || [],
+                  original_language: movie.original_language || "",
+                  original_name: movie.original_name || "",
+                  overview: movie.overview || "",
+                  popularity: movie.popularity || 0,
+                  poster_path: movie.poster_path || "",
+                  vote_average: movie.vote_average || 0,
+                  vote_count: movie.vote_count || 0,
+              }
+            }
+
 
         return {
             id: vectorId,

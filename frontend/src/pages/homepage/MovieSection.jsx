@@ -5,7 +5,6 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 function MovieSection(user) {
-
   const [loading, setLoading] = useState(false);
 
   console.log("Movie section User data:", user);
@@ -14,22 +13,29 @@ function MovieSection(user) {
   const embedMovies = async () => {
     setLoading(true);
     try {
-      // 1️⃣ Fetch trending movies from TMDB
-      const res = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`);
-      const data = await res.json();
+      for (let i = 0; i < 20; i++) {
+        console.log("Embedding movies... ", i);
 
-      // 2️⃣ Send them to your backend to embed in Pinecone
-      const embedRes = await fetch("/api/chatbot/embed-movies", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ movies: data.results }) // data.results is array of movie objects
-      });
+        // 1️⃣ Fetch trending movies from TMDB
+        const res = await fetch(
+          `${BASE_URL}/tv/top_rated?api_key=${API_KEY}&page=${i + 1}`
+        );
+        const data = await res.json();
 
-      const result = await embedRes.json();
-      console.log("Embed response:", result);
-      alert(`✅ Embedded ${result.count} movies successfully!`);
+        // 2️⃣ Send them to your backend to embed in Pinecone
+        const embedRes = await fetch("/api/chatbot/embed-movies", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ movies: data.results }), // data.results is array of movie objects
+        });
+
+        const result = await embedRes.json();
+        console.log("Embed response:", result);
+      }
+
+      alert(`✅ Embedded movies successfully!`);
     } catch (err) {
       console.error(err);
       alert("❌ Failed to embed movies");
@@ -51,6 +57,12 @@ function MovieSection(user) {
       <MovieCarousel
         title="Trending"
         fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`}
+        user={user}
+      />
+
+      <MovieCarousel
+        title="Trending"
+        fetchURL={`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&with_genres=16&page=13`}
         user={user}
       />
 
