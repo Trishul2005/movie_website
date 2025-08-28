@@ -17,6 +17,7 @@ function Navbar(user) {
       <div className="navbar-logo">🎬 MovieRankrr</div>
       <ul className="navbar-links">
         <li>Home</li>
+        <li onClick={() => navigate("/aiRec")}>AI Recommendations</li>
         <li onClick={() => navigate("/watchlist")}>Watchlist</li>
         <li>{username}</li>
       </ul>

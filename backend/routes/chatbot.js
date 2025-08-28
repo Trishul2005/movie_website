@@ -135,13 +135,9 @@ router.post("/rag-response", async (req, res) => {
     }
 
     // Convert the top results into a readable list for the LLM
-    const moviesList = movies_json.map((m, idx) => {
-      const title = m.metadata.title || m.metadata.name || "Unknown Title";
-      const year = (m.metadata.release_date || m.metadata.first_air_date || "").split("-")[0] || "Unknown Year";
-      const overview = m.metadata.overview || "No description available.";
-      const genre = m.metadata.genre_ids ? m.metadata.genre_ids.join(", ") : "Unknown";
-      return `${idx + 1}. ${title} (${year}) - ${overview} [Genres: ${genre}]`;
-    }).join("\n");
+    const moviesList = movies_json
+  .map((m) => JSON.stringify(m.metadata))
+  .join("\n");
 
     const prompt = `
 You are a movie recommendation assistant.
@@ -150,29 +146,51 @@ The user asked: "${query}"
 Here are the top results from the database:
 ${moviesList}
 
-⚠️ Important: Recommend only from the movies listed above. 
-Suggest 3–5 movies that best match the query. 
-Answer conversationally, highlight why each is a fit, 
-and include title + release year.
+⚠️ Important: 
+- Recommend only from the movies listed above.
+- Do not invent new movies. 
+- Do not skip movies unnecessarily. 
+- Make the "reason" field friendly, bubbly, and conversational.
+- Return 3–5 recommendations in strict JSON:
+
+{
+  "intro": "A short greeting or intro for the user",
+  "recommendations": [
+    {
+      "movie": { ...one of the JSON objects above... },
+      "reason": "Fun, friendly reason why this movie matches the query"
+    }
+  ],
+  "conclusion": "A short, cheerful sign-off"
+}
 `;
 
     // call OpenAI
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You recommend movies based only on the search results provided." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7
-    });
+const completion = await client.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [
+    { role: "system", content: "You recommend movies based only on the search results provided." },
+    { role: "user", content: prompt }
+  ],
+  temperature: 0.7
+});
 
-    const answer = completion.choices[0].message.content;
+const answer = completion.choices[0].message.content;
 
-    res.json({
-      success: true,
-      query,
-      recommendations: answer
-    });
+let recommendations = [];
+try {
+  recommendations = JSON.parse(answer); // parse here
+} catch (err) {
+  console.error("Failed to parse LLM JSON:", err);
+  // fallback: wrap in a dummy structure
+  recommendations = { recommendations: [] };
+}
+
+res.json({
+  success: true,
+  query,
+  recommendations
+});
 
   } catch (err) {
     console.error(err);

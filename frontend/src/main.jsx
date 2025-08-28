@@ -7,6 +7,7 @@ import LoginPage from "./pages/login/LoginPage.jsx";
 import MovieDetails from "./pages/detailedView/MovieDetails.jsx"; // You need to create this
 import TempLogin from "./pages/login/TempLogin.jsx"; // Temporary login page
 import Watchlist from "./pages/watchlist/Watchlist.jsx";
+import AiRec from "./pages/aiRec/aiRec.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/:mediaType/:id" element={<MovieDetails />} />
         <Route path="/" element={<TempLogin />} />
         <Route path="/watchlist" element={<Watchlist />}/>
+        <Route path="/aiRec" element={<AiRec />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
