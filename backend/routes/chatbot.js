@@ -158,7 +158,7 @@ ${moviesList}
   "recommendations": [
     {
       "movie": { ...one of the JSON objects above... },
-      "reason": "Fun, friendly reason why this movie matches the query"
+      "reason": "Fun, friendly reason why this movie matches the query. Length should be a paragraph."
     }
   ],
   "conclusion": "A short, cheerful sign-off"

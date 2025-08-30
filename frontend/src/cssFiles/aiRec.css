@@ -1,105 +1,167 @@
+/* General container */
 .airec-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.airec-input {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.airec-input input {
-  flex: 1;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.airec-input button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #ff6f61;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.airec-input button:hover {
-  background-color: #ff4c3b;
-}
-
-.airec-error {
-  color: red;
-  margin-bottom: 10px;
-}
-
-.airec-results {
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #111;
 }
 
-.airec-intro, .airec-conclusion {
-  font-style: italic;
-  color: #555;
+/* Landing state */
+.airec-landing {
+  margin: auto;
   text-align: center;
 }
 
+.airec-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.airec-input-box {
+  width: 60%;
+  max-width: 600px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.airec-button {
+  margin-left: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #10a37f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.airec-button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Chat state */
+.airec-chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.airec-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message bubbles */
+.airec-message {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 15px;
+  margin: 8px 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #10a37f;
+  color: white;
+  align-self: flex-start; /* Left */
+  border-bottom-left-radius: 5px;
+}
+
+.ai-message {
+  background-color: #e5e5ea;
+  color: #111;
+  align-self: flex-end; /* Right */
+  border-bottom-right-radius: 5px;
+}
+
+/* Movie cards inside AI response */
 .airec-card-row {
   display: flex;
-  gap: 15px;
   align-items: flex-start;
-  border: 1px solid #eee;
+  margin-top: 12px;
+  background: #fff;
   border-radius: 10px;
-  padding: 10px;
-  background: #fafafa;
+  overflow: hidden;
+  border: 1px solid #ddd;
 }
 
 .airec-card {
-  width: 120px;
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 
 .airec-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 5px;
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
 }
 
-.airec-card-info h3 {
-  font-size: 1rem;
-  margin: 0;
-}
-
-.airec-card-info p {
-  margin: 2px 0 0;
-  font-size: 0.85rem;
-  color: #777;
+.airec-card-info {
+  padding: 10px;
 }
 
 .airec-reason {
-  flex: 1;
-  font-size: 0.95rem;
-  line-height: 1.3;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: #444;
 }
 
+/* Input bar like ChatGPT */
+.airec-input-bar {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.airec-input-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #111;
+}
+
+.airec-input-bar button {
+  margin-left: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #10a37f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.airec-input-bar button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Spinner */
 .spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid #fff;
-  border-top: 3px solid #ff4c3b;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid white;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
   display: inline-block;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
