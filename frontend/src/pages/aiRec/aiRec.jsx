@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import Navbar from "../homepage/navbar";
 import "../../cssFiles/aiRec.css";
 
 function AiRec() {
+  const [user, setUser] = useState(null);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [ragData, setRagData] = useState(null);
@@ -52,6 +54,29 @@ function AiRec() {
     }
   };
 
+  // get user
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/users/me", {
+          method: "GET",
+          credentials: "include", // Required to send the cookie
+        });
+
+        if (!res.ok) throw new Error("Not logged in");
+
+        const user = await res.json();
+        console.log(user);
+        setUser(user); // Your React state
+      } catch (err) {
+        console.error(err);
+        setUser(null); // Not logged in
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleQuery();
@@ -61,10 +86,12 @@ function AiRec() {
   // 🔽 Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, loading]);
 
   return (
-    <div className="airec-container">
+    <>
+      <Navbar user={user}/>
+      <div className="airec-container">
       {messages.length === 0 ? (
         // Landing Page (just input centered)
         <div className="airec-landing">
@@ -95,24 +122,35 @@ function AiRec() {
                 <div key={idx} className="airec-message ai-message">
                   {msg.data?.intro && <p>{msg.data.intro}</p>}
                   {msg.data?.recommendations?.map((rec, i) => (
-                    <div key={i} className="airec-card-row">
-                      <div className="airec-card">
-                        <img
-                          src={`https://image.tmdb.org/t/p/w300${rec.movie.poster_path}`}
-                          alt={rec.movie.title || rec.movie.name}
-                        />
-                        <div className="airec-card-info">
-                          <h3>{rec.movie.title || rec.movie.name}</h3>
-                          <p>{(rec.movie.release_date || rec.movie.first_air_date || "").split("-")[0]}</p>
-                        </div>
+                    <div key={i} className="airec-card">
+                      <img
+                        className="airec-poster"
+                        src={`https://image.tmdb.org/t/p/w300${rec.movie.poster_path}`}
+                        alt={rec.movie.title || rec.movie.name}
+                      />
+                      <div className="airec-card-details">
+                        <h3>{rec.movie.title || rec.movie.name}</h3>
+                        <p className="airec-year">
+                          {(rec.movie.release_date || rec.movie.first_air_date || "").split("-")[0]}
+                        </p>
+                        <p className="airec-reason">{rec.reason}</p>
                       </div>
-                      <div className="airec-reason">{rec.reason}</div>
                     </div>
                   ))}
                   {msg.data?.conclusion && <p>{msg.data.conclusion}</p>}
                 </div>
               )
             )}
+
+            {/* Typing indicator bubble */}
+            {loading && (
+              <div className="airec-message ai-message typing-bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+
             {/* 🔽 Scroll anchor */}
             <div ref={messagesEndRef} />
           </div>
@@ -136,6 +174,8 @@ function AiRec() {
 
       {error && <div className="airec-error">{error}</div>}
     </div>
+    </>
+    
   );
 }
 

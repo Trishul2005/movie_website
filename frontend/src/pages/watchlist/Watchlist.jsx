@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import Navbar from "../homepage/Navbar";
+import Navbar from "../homepage/navbar";
 
 import "../../cssFiles/Watchlist.css";
 

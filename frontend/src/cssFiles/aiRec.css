@@ -5,19 +5,23 @@
   display: flex;
   flex-direction: column;
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #111;
+  background-color: rgb(44, 42, 42); /* Dark background */
+  color: #eaeaea;           /* Light text */
 }
 
 /* Landing state */
 .airec-landing {
-  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
 }
 
 .airec-title {
   font-size: 2rem;
   margin-bottom: 1.5rem;
+  color: #ffffff;
 }
 
 .airec-input-box {
@@ -25,8 +29,10 @@
   max-width: 600px;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   font-size: 1rem;
+  background-color: #1e1e1e;
+  color: #eaeaea;
 }
 
 .airec-button {
@@ -41,7 +47,7 @@
 }
 
 .airec-button:disabled {
-  background-color: #bbb;
+  background-color: #555;
   cursor: not-allowed;
 }
 
@@ -50,6 +56,13 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.airec-chat, 
+.airec-landing {
+  max-width: 1200px; 
+  margin: 0 auto;
+  width: 100%;
 }
 
 .airec-messages {
@@ -73,64 +86,131 @@
 .user-message {
   background-color: #10a37f;
   color: white;
-  align-self: flex-start; /* Left */
-  border-bottom-left-radius: 5px;
-}
-
-.ai-message {
-  background-color: #e5e5ea;
-  color: #111;
-  align-self: flex-end; /* Right */
+  align-self: flex-end;
   border-bottom-right-radius: 5px;
 }
 
-/* Movie cards inside AI response */
-.airec-card-row {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 12px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #ddd;
+.ai-message {
+  background-color: #262626;
+  color: #eaeaea;
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
 }
 
+/* Typing bubble animation */
+.typing-bubble {
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px;
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  width: fit-content;
+}
+
+.typing-bubble span {
+  width: 8px;
+  height: 8px;
+  background: #888;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.typing-bubble span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-bubble span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* Movie card layout */
 .airec-card {
   display: flex;
-  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 12px;
+  flex-wrap: wrap;
 }
 
-.airec-card img {
-  width: 80px;
-  height: 120px;
+.airec-poster {
+  width: 100px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 6px;
 }
 
-.airec-card-info {
-  padding: 10px;
+.airec-card-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.airec-card-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  color: #ffffff;
+}
+
+.airec-year {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #bbbbbb;
+  line-height: 1.2;
 }
 
 .airec-reason {
-  padding: 12px;
-  font-size: 0.9rem;
-  color: #444;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #dddddd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .airec-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .airec-poster {
+    width: 140px;
+    height: 210px;
+    margin-bottom: 10px;
+  }
+
+  .airec-card-details {
+    align-items: center;
+  }
 }
 
 /* Input bar like ChatGPT */
 .airec-input-bar {
   display: flex;
   padding: 15px;
-  border-top: 1px solid #ddd;
-  background-color: #fff;
 }
 
 .airec-input-bar input {
   flex: 1;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  color: #111;
+  border: 1px solid #474747;
+  background-color: #2a2a2a;
+  color: #eaeaea;
 }
 
 .airec-input-bar button {
@@ -145,14 +225,14 @@
 }
 
 .airec-input-bar button:disabled {
-  background-color: #bbb;
+  background-color: #555;
   cursor: not-allowed;
 }
 
 /* Spinner */
 .spinner {
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  border-top: 3px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #10a37f;
   border-radius: 50%;
   width: 16px;
   height: 16px;
