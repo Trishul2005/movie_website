@@ -1,42 +1,88 @@
-.movie-card {
+.mc-card {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center;    /* Center contents horizontally */
-  min-width: 180px;
+  flex-direction: column;
+  align-items: center;
   flex-shrink: 0;
   scroll-snap-align: start;
-  border-radius: 8px;
+  border-radius: 16px;
   transition: transform 0.3s ease;
-  padding: 8px;           /* Add some padding */
-  background-color: #111; /* Optional: background color for contrast */
+  padding: 12px;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+
+  /* Dynamic width */
+  width: clamp(160px, 22vw, 280px);
 }
 
-.movie-card:hover {
+.mc-card:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
 
-.movie-poster {
+.mc-poster-container {
+  position: relative;
+  width: 100%;
+}
+
+.mc-poster {
+  width: 100%;
   height: auto;
-  width: 300px;
-  border-radius: 8px;
-  margin-bottom: 10px; /* Space below the image */
+  border-radius: 12px;
   cursor: pointer; 
+  display: block;
 }
 
-.movie-title-watchlist {
-  background-color: #00bcd4;
+/* Heart icon */
+.mc-watchlist-heart {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.4);
   border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: white;
-  font-weight: 600;
+  border-radius: 50%;
+  padding-top: 8px;
   cursor: pointer;
-  width: 100%;         /* Full width of the card */
-  max-width: 180px;    /* Match card width */
-  transition: background-color 0.3s ease;
+  font-size: 1.4rem;
+  color: #bbb;
+  transition: all 0.3s ease;
 }
 
-.movie-title-watchlist:hover {
-  background-color: #0097a7;
+.mc-watchlist-heart:hover {
+  background: rgba(0,0,0,0.6);
+  color: #e91e63;
+}
+
+.mc-watchlist-heart.active {
+  color: #e91e63;
+  text-shadow: 0 0 10px rgba(233, 30, 99, 0.8);
+}
+
+/* 📱 Mobile-friendly tweaks */
+@media (max-width: 768px) {
+  .mc-card {
+    width: clamp(140px, 40vw, 200px);
+  }
+
+  .mc-watchlist-heart {
+    font-size: 1.2rem;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mc-card {
+    width: clamp(120px, 45vw, 160px);
+    padding: 8px;
+  }
+
+  .mc-watchlist-heart {
+    font-size: 1rem;
+    top: 8px;
+    left: 8px;
+  }
 }

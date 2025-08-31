@@ -3,6 +3,7 @@
   position: relative;
   color: white;
   overflow-x: hidden;
+  padding-top: 80px; /* matches navbar height */
 }
 
 .movie-backdrop {

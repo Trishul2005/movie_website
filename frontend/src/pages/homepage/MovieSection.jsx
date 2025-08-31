@@ -86,12 +86,12 @@ function MovieSection(user) {
         {loading ? "Embedding..." : "Embed Trending Movies"}
       </button> */}
 
-      <button
+      {/* <button
         onClick={queryMovies}
         style={{ marginBottom: "20px", padding: "10px 20px" }}
       >
         {loading ? "Querying..." : "Query Movies"}
-      </button>
+      </button> */}
 
       <MovieCarousel
         title="Trending"

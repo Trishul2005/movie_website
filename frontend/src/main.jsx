@@ -8,16 +8,18 @@ import MovieDetails from "./pages/detailedView/MovieDetails.jsx"; // You need to
 import TempLogin from "./pages/login/TempLogin.jsx"; // Temporary login page
 import Watchlist from "./pages/watchlist/Watchlist.jsx";
 import AiRec from "./pages/aiRec/aiRec.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/:mediaType/:id" element={<MovieDetails />} />
         <Route path="/" element={<TempLogin />} />
         <Route path="/watchlist" element={<Watchlist />}/>
-        <Route path="/aiRec" element={<AiRec />} />
+        <Route path="/airecommendation" element={<AiRec />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

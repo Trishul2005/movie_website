@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "../homepage/navbar";
+import Navbar from "../homepage/Navbar";
 import "../../cssFiles/aiRec.css";
 
 function AiRec() {
@@ -89,93 +89,102 @@ function AiRec() {
   }, [messages, loading]);
 
   return (
-    <>
-      <Navbar user={user}/>
+    <div className="all-background">
+      <Navbar user={user} />
       <div className="airec-container">
-      {messages.length === 0 ? (
-        // Landing Page (just input centered)
-        <div className="airec-landing">
-          <h1 className="airec-title">🎬 AI Movie Recommender</h1>
-          <input
-            type="text"
-            className="airec-input-box"
-            placeholder="Type a query like 'shows similar to Breaking Bad'"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyPress}
-            disabled={loading}
-          />
-          <button className="airec-button" onClick={handleQuery} disabled={loading}>
-            {loading ? <span className="spinner"></span> : "Search"}
-          </button>
-        </div>
-      ) : (
-        // Chat Interface
-        <div className="airec-chat">
-          <div className="airec-messages">
-            {messages.map((msg, idx) =>
-              msg.sender === "user" ? (
-                <div key={idx} className="airec-message user-message">
-                  {msg.text}
-                </div>
-              ) : (
-                <div key={idx} className="airec-message ai-message">
-                  {msg.data?.intro && <p>{msg.data.intro}</p>}
-                  {msg.data?.recommendations?.map((rec, i) => (
-                    <div key={i} className="airec-card">
-                      <img
-                        className="airec-poster"
-                        src={`https://image.tmdb.org/t/p/w300${rec.movie.poster_path}`}
-                        alt={rec.movie.title || rec.movie.name}
-                      />
-                      <div className="airec-card-details">
-                        <h3>{rec.movie.title || rec.movie.name}</h3>
-                        <p className="airec-year">
-                          {(rec.movie.release_date || rec.movie.first_air_date || "").split("-")[0]}
-                        </p>
-                        <p className="airec-reason">{rec.reason}</p>
-                      </div>
-                    </div>
-                  ))}
-                  {msg.data?.conclusion && <p>{msg.data.conclusion}</p>}
-                </div>
-              )
-            )}
-
-            {/* Typing indicator bubble */}
-            {loading && (
-              <div className="airec-message ai-message typing-bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            )}
-
-            {/* 🔽 Scroll anchor */}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Bottom input bar like ChatGPT */}
-          <div className="airec-input-bar">
+        {messages.length === 0 ? (
+          // Landing Page (just input centered)
+          <div className="airec-landing">
+            <h1 className="airec-title">🎬 AI Movie Recommender</h1>
             <input
               type="text"
-              placeholder="Type your message..."
+              className="airec-input-box"
+              placeholder="Type a query like 'shows similar to Breaking Bad'"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyPress}
               disabled={loading}
             />
-            <button onClick={handleQuery} disabled={loading || !query.trim()}>
-              {loading ? <span className="spinner"></span> : "Send"}
+            <button
+              className="airec-button"
+              onClick={handleQuery}
+              disabled={loading}
+            >
+              {loading ? <span className="spinner"></span> : "Search"}
             </button>
           </div>
-        </div>
-      )}
+        ) : (
+          // Chat Interface
+          <div className="airec-chat">
+            <div className="airec-messages">
+              {messages.map((msg, idx) =>
+                msg.sender === "user" ? (
+                  <div key={idx} className="airec-message user-message">
+                    {msg.text}
+                  </div>
+                ) : (
+                  <div key={idx} className="airec-message ai-message">
+                    {msg.data?.intro && <p>{msg.data.intro}</p>}
+                    {msg.data?.recommendations?.map((rec, i) => (
+                      <div key={i} className="airec-card">
+                        <img
+                          className="airec-poster"
+                          src={`https://image.tmdb.org/t/p/w300${rec.movie.poster_path}`}
+                          alt={rec.movie.title || rec.movie.name}
+                        />
+                        <div className="airec-card-details">
+                          <h3>{rec.movie.title || rec.movie.name}</h3>
+                          <p className="airec-year">
+                            {
+                              (
+                                rec.movie.release_date ||
+                                rec.movie.first_air_date ||
+                                ""
+                              ).split("-")[0]
+                            }
+                          </p>
+                          <p className="airec-reason">{rec.reason}</p>
+                        </div>
+                      </div>
+                    ))}
+                    {msg.data?.conclusion && <p>{msg.data.conclusion}</p>}
+                  </div>
+                )
+              )}
 
-      {error && <div className="airec-error">{error}</div>}
+              {/* Typing indicator bubble */}
+              {loading && (
+                <div className="airec-message ai-message typing-bubble">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              )}
+
+              {/* 🔽 Scroll anchor */}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Bottom input bar like ChatGPT */}
+            <div className="airec-input-bar">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyPress}
+                disabled={loading}
+              />
+              <button onClick={handleQuery} disabled={loading || !query.trim()}>
+                {loading ? <span className="spinner"></span> : "Send"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {error && <div className="airec-error">{error}</div>}
+      </div>
     </div>
-    </>
-    
   );
 }
 

@@ -9,8 +9,7 @@
   
   margin: 0 auto;           /* center container horizontally if needed */
   box-sizing: border-box;   /* include padding in width calculations */
-
-  background: linear-gradient(135deg, #c4d2f9, #ba9ee7); /* Gradient background */
+  padding-top: 80px; /* matches navbar height */
 }
 
 .wl-header {

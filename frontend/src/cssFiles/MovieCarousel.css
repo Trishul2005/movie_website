@@ -4,70 +4,80 @@
 
 .mc-movie-carousel-title {
   margin-left: 1rem;
-  color: rgb(255, 255, 255); /* Or your color theme */
+  color: #fff;
   font-family: Arial, Helvetica, sans-serif;
-  justify-content: center;
   text-align: center;
   font-weight: 1000;
   font-size: 2rem;
   margin-bottom: 0rem;
 }
 
-/* This is the scrollable horizontal row */
+/* Wrapper positions arrows relative to the row */
+.mc-carousel-wrapper {
+  position: relative;
+}
+
+/* Scrollable row */
 .mc-movie-row {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 1rem;
   gap: 1rem;
-  
-}
 
+  /* Hide scrollbar cross-browser */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.mc-movie-row::-webkit-scrollbar { display: none; }
+
+/* Arrows: centered vertically, aligned to edges */
 .mc-scroll-button {
-  
   z-index: 2;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
-  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 56px;
+  height: 56px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s ease;
-  
+  transition: background 0.25s ease, transform 0.15s ease;
 }
 
 .mc-scroll-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-50%) scale(1.05);
 }
 
-/* Position buttons left/right */
-.mc-scroll-button.left {
-  left: 0;
-  margin-top: 225px;
-}
-
-.mc-scroll-button.right {
-  right: 0;
-  margin-top: -316px;
-}
+.mc-scroll-button.left { left: 8px; }
+.mc-scroll-button.right { right: 8px; }
 
 .mc-scroll-button img {
-  width: 40px;
-  height: 40px;
-  filter: invert(1); /* makes black icons white — optional */
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
 }
 
-/* Optional: Hide scrollbar (modern browsers) */
-.mc-movie-row::-webkit-scrollbar {
-  display: none;
+/* Hide arrows on tablets/phones */
+@media (max-width: 768px) {
+  .mc-scroll-button { display: none; }
 }
 
-.mc-movie-row {
-  -ms-overflow-style: none;  /* IE/Edge */
-  scrollbar-width: none;     /* Firefox */
+/* Optional: slightly larger arrows on very big screens */
+@media (min-width: 1600px) {
+  .mc-scroll-button {
+    width: 64px;
+    height: 64px;
+  }
+  .mc-scroll-button img {
+    width: 28px;
+    height: 28px;
+  }
 }
-

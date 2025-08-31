@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import Navbar from "../homepage/navbar";
+import Navbar from "../homepage/Navbar";
 
 import "../../cssFiles/Watchlist.css";
 
@@ -119,7 +119,7 @@ function Watchlist() {
   };
 
   return (
-    <>
+    <div className="all-background">
       <Navbar user={user} />
       <div className="wl-container">
         <div className="wl-header">
@@ -248,7 +248,7 @@ function Watchlist() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

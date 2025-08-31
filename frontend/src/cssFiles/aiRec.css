@@ -5,8 +5,9 @@
   display: flex;
   flex-direction: column;
   font-family: Arial, sans-serif;
-  background-color: rgb(44, 42, 42); /* Dark background */
+  /* background-color: rgb(44, 42, 42); Dark background */
   color: #eaeaea;           /* Light text */
+  padding-top: 80px; /* matches navbar height */
 }
 
 /* Landing state */
@@ -56,6 +57,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  
 }
 
 .airec-chat, 
