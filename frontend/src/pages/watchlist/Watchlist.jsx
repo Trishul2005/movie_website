@@ -122,11 +122,12 @@ function Watchlist() {
     <div className="all-background">
       <Navbar user={user} />
       <div className="wl-container">
-        <div className="wl-header">
-          <button className="wl-back-btn" onClick={handleBackClick}>← Back</button>
-          <h2 className="wl-title">My Watchlist</h2>
-          <div className="wl-right-placeholder"></div>
+        <div className="wl-back-btn-wrapper" style={{ alignSelf: "flex-start" }}>
+          <button className="wl-back-btn" onClick={handleBackClick}>
+            ← Back to Movies
+          </button>
         </div>
+        <h2 className="wl-title">My Watchlist</h2>
 
         <p className="wl-subtitle">
           Keep track of movies you want to watch, are currently watching, and
@@ -136,12 +137,12 @@ function Watchlist() {
         <section className="wl-metadata-container" aria-label="Watchlist stats">
           <div className="wl-data-container">
             <h2 className="wl-want-to-watch-num">{wantToWatch}</h2>
-            <p className="wl-want-to-watch">Want to Watch</p>
+            <p className="wl-want-to-watch">Planned</p>
           </div>
 
           <div className="wl-data-container">
             <h2 className="wl-cur-watching-num">{currWatching}</h2>
-            <p className="wl-cur-watching">Currently Watching</p>
+            <p className="wl-cur-watching">Watching</p>
           </div>
 
           <div className="wl-data-container">
@@ -170,7 +171,7 @@ function Watchlist() {
             }`}
             onClick={() => setBtnFilter("all-movies")}
           >
-            All Movies
+            All
           </button>
           <button
             className={`wl-filter-btn ${
@@ -178,7 +179,7 @@ function Watchlist() {
             }`}
             onClick={() => setBtnFilter("want-to-watch")}
           >
-            Want to Watch
+            Planned
           </button>
           <button
             className={`wl-filter-btn ${
@@ -186,7 +187,7 @@ function Watchlist() {
             }`}
             onClick={() => setBtnFilter("currently-watching")}
           >
-            Currently Watching
+            Watching
           </button>
           <button
             className={`wl-filter-btn ${
@@ -213,7 +214,9 @@ function Watchlist() {
                 <h3 className="wl-movie-title">{movie.title}</h3>
 
                 <div className="wl-movie-info">
-                  <p className="wl-movie-release">{movie.air_date}</p>
+                  <p className="wl-movie-release">
+                    {movie.air_date.slice(0, 4)}
+                  </p>
                   <p className="wl-movie-rating">
                     {Math.round(movie.vote_average * 10) / 10}
                   </p>
@@ -227,10 +230,8 @@ function Watchlist() {
                       handleStatusChange(movie.movieId, e.target.value)
                     }
                   >
-                    <option value="want-to-watch">Want to Watch</option>
-                    <option value="currently-watching">
-                      Currently Watching
-                    </option>
+                    <option value="want-to-watch">Planned</option>
+                    <option value="currently-watching">Watching</option>
                     <option value="completed">Completed</option>
                   </select>
 

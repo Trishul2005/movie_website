@@ -13,26 +13,25 @@ function Navbar({ user }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo" onClick={() => navigate("/homepage")}>🎬 MovieRankrr</div>
-
-      <ul className={`navbar-links ${isOpen ? "open" : ""}`}>
-        <li onClick={() => navigate("/homepage")}>Home</li>
-        <li onClick={() => navigate("/airecommendation")}>AI</li>
-        <li onClick={() => navigate("/watchlist")}>Watchlist</li>
-        <li>{username}</li>
-      </ul>
-
-      {/* Hamburger Icon */}
-      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-        <span></span>
-        <span></span>
-        <span></span>
+      <div className="navbar-logo" onClick={() => navigate("/homepage")}>
+        🎬 Movie<span className="logo-black">Rankrr</span>
       </div>
 
-      {/* Overlay for blur effect */}
-      {isOpen && (
-        <div className="navbar-overlay" onClick={() => setIsOpen(false)}></div>
-      )}
+      <div className="navbar-menu">
+        <ul className={`navbar-links ${isOpen ? "open" : ""}`}>
+          <li onClick={() => navigate("/homepage")}>Home</li>
+          <li onClick={() => navigate("/airecommendation")}>AI</li>
+          <li onClick={() => navigate("/watchlist")}>Watchlist</li>
+          <li>{username}</li>
+        </ul>
+
+        {/* Hamburger Icon outside the ul */}
+        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </nav>
   );
 }

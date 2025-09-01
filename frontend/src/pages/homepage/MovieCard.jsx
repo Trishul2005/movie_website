@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FaHeart } from "react-icons/fa";
 
-function MovieCard({ movie, user }) {
+function MovieCard({ movie, user, category }) {
   const navigate = useNavigate();
   const [inWatchlist, setInWatchlist] = useState(false);
 
@@ -40,7 +40,7 @@ function MovieCard({ movie, user }) {
         popularity: movie.popularity,
         vote_average: movie.vote_average,
         vote_count: movie.vote_count,
-        media_type: movie.media_type,
+        media_type: category,
       }),
     });
 
@@ -54,7 +54,7 @@ function MovieCard({ movie, user }) {
   };
 
   const handleCardClick = () => {
-    navigate(`/${movie.media_type}/${movie.id}`);
+    navigate(`/${category}/${movie.id}`);
   };
 
   return (

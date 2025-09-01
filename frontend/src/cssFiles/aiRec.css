@@ -10,6 +10,23 @@
   padding-top: 80px; /* matches navbar height */
 }
 
+.airec-btn {
+  align-self: flex-start;
+  margin: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.airec-btn:hover {
+  color: #ff6666; /* highlight color on hover */
+}
+
+
 /* Landing state */
 .airec-landing {
   position: absolute;

@@ -5,7 +5,7 @@ import '../../cssFiles/MovieCarousel.css';
 import arrowLeft from '../../assets/arrow-left-s-line.svg';
 import arrowRight from '../../assets/arrow-right-s-line.svg';
 
-function MovieCarousel({ title, fetchURL, genre, user }) {
+function MovieCarousel({ title, subtitle, fetchURL, genre, user, category }) {
   const [movies, setMovies] = useState([]);
   const scrollRef = useRef(null);
 
@@ -44,7 +44,8 @@ function MovieCarousel({ title, fetchURL, genre, user }) {
 
   return (
     <div className="mc-movie-carousel">
-      <h2 className="mc-movie-carousel-title">{title}</h2>
+      <h2 className="mc-movie-carousel-title">| {title}</h2>
+      <p className="mc-movie-carousel-subtitle">{subtitle}</p>
 
       <div className="mc-carousel-wrapper">
         <button
@@ -58,7 +59,7 @@ function MovieCarousel({ title, fetchURL, genre, user }) {
 
         <div className="mc-movie-row" ref={scrollRef}>
           {movies.map((movie) => (
-            <MovieCard key={`${movie.media_type}-${movie.id}`} movie={movie} user={user} />
+            <MovieCard key={`${movie.media_type}-${movie.id}`} movie={movie} user={user} category={category} />
           ))}
         </div>
 

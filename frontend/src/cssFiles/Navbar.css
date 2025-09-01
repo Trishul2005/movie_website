@@ -16,12 +16,19 @@
   z-index: 1000;
 }
 
+
+
 /* Logo stays left */
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: bold;
   z-index: 1000;
   cursor: pointer;
+  color:rgba(255, 255, 255, 0.84);
+}
+
+.logo-black {
+  color: black; /* only "Rankrr" becomes black */
 }
 
 /* Links container */
@@ -31,11 +38,10 @@
   gap: 1.5rem;
   margin: 0;
   padding: 0;
-  position: absolute; /* center links on desktop */
+  position: absolute; 
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
 .navbar-links li {
@@ -69,31 +75,41 @@
 }
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+
+  .navbar-menu {
+  position: relative;
+}
   .navbar-links {
     position: absolute;
     top: 60px;
-    right: 0;
-    transform: translateX(100%);
-    flex-direction: column;
-    align-items: flex-start;
-    background: rgba(255, 255, 255, 0.805);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    right: 0;          /* keeps it aligned to right edge of parent (.navbar-menu) */
     width: 200px;
     padding: 1rem;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
     backdrop-filter: blur(12px);
     color: black;
+    display: none;
+    margin-top: 105px
   }
 
   .navbar-links.open {
-    transform: translateX(0);
+    display: flex;
   }
 
   .hamburger {
     display: flex;
+    position: relative;  /* optional: can help if needed */
+    z-index: 1005;
   }
-  
+}
+
+@media (min-width: 901px) {
+  .hamburger {
+    display: none;
+  }
 }
