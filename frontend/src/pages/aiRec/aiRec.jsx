@@ -61,7 +61,7 @@ function AiRec() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/users/me", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           method: "GET",
           credentials: "include", // Required to send the cookie
         });
