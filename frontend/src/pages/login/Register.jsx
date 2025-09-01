@@ -23,17 +23,16 @@ function Register() {
     try {
       let response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register`, {
         method: "POST",
-        credentials: 'include',
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(formData)
       });
 
       response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
         method: 'POST',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${localStorage.getItem("token")}`, },
         body: JSON.stringify({
           username: formData.username,
           email: formData.email, // allow both username or email

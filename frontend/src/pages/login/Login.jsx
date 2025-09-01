@@ -20,8 +20,7 @@ function Login() {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
         method: 'POST',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${localStorage.getItem("token")}`,},
         body: JSON.stringify({
           username: form.usernameOrEmail,
           email: form.usernameOrEmail, // allow both username or email
@@ -33,7 +32,7 @@ function Login() {
       console.log("Response from server login:", data);
 
       if (response.ok) {
-
+        localStorage.setItem("token", data.token);  // Save JWT
         navigate(`/homepage`);
         
       } else {

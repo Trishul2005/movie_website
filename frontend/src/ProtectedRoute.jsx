@@ -12,7 +12,9 @@ export default function ProtectedRoute({ children }) {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           method: "GET",
-          credentials: "include", // 👈 send cookies
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
         });
 
         if (res.ok) {

@@ -24,7 +24,9 @@ function Watchlist() {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           method: "GET",
-          credentials: "include", // Required to send the cookie
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
         });
 
         if (!res.ok) {
@@ -70,9 +72,9 @@ function Watchlist() {
           `${import.meta.env.VITE_API_URL}/api/users/me/updateWatchlist`,
           {
             method: "PUT",
-            credentials: "include", // send cookie with JWT
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify({ updatedList: watchlist }),
           }

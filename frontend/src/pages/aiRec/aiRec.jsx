@@ -63,7 +63,9 @@ function AiRec() {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           method: "GET",
-          credentials: "include", // Required to send the cookie
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
         });
 
         if (!res.ok) {

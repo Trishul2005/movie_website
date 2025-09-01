@@ -54,7 +54,9 @@ function MovieDetails() {
         // Fetch user data
         const userRes = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           method: "GET",
-          credentials: "include", // Required to send the cookie
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
         });
 
         if (!userRes.ok) {
@@ -117,9 +119,9 @@ function MovieDetails() {
     // Make a POST request to add the movie to the user's watchlist
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}/watchlist`, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         movieId: movie.id,
