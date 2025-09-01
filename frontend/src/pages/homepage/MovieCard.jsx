@@ -25,7 +25,7 @@ function MovieCard({ movie, user, category }) {
 
     const userId = user?.user._id;
 
-    const response = await fetch(`/api/users/${userId}/watchlist`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}/watchlist`, {
       method: 'POST',
       credentials: 'include',
       headers: {

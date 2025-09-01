@@ -115,7 +115,7 @@ function MovieDetails() {
     console.log("Adding/removing movie to watchlist:", movie);
 
     // Make a POST request to add the movie to the user's watchlist
-    const response = await fetch(`/api/users/${userId}/watchlist`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}/watchlist`, {
       method: "POST",
       credentials: "include",
       headers: {

@@ -24,7 +24,7 @@ function AiRec() {
 
     try {
       // 1️⃣ Get top movies from your query endpoint
-      const queryRes = await fetch("/api/chatbot/query-movies", {
+      const queryRes = await fetch(`${import.meta.env.VITE_API_URL}/api/chatbot/query-movies`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query, topK: 10 }),
@@ -34,7 +34,7 @@ function AiRec() {
       let user_watchlist = user ? user.watchlist || [] : [];
 
       // 2️⃣ Call RAG with those movies
-      const res = await fetch("/api/chatbot/rag-response", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/chatbot/rag-response`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query, movies_json, user_watchlist }),
