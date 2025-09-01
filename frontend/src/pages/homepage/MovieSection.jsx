@@ -1,11 +1,48 @@
 import MovieCarousel from "./MovieCarousel.jsx";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../cssFiles/MovieSection.css";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 function MovieSection(user) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Handle search input change
+  const handleSearchChange = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (!query) {
+      setSearchResults([]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(
+          query
+        )}`
+      );
+      const data = await res.json();
+
+      // Filter out people, keep only movies and TV shows
+      const filteredResults = (data.results || []).filter(
+        (item) => item.media_type === "movie" || item.media_type === "tv"
+      );
+
+      setSearchResults(filteredResults);
+    } catch (err) {
+      console.error("TMDB search error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   console.log("Movie section User data:", user);
 
@@ -78,6 +115,36 @@ function MovieSection(user) {
 
   return (
     <div>
+      {/* Search Bar */}
+      <div className="movie-search-container">
+        <input
+          type="text"
+          placeholder="Search movies, TV shows..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+      </div>
+
+      {/* Display search results if any */}
+      {searchResults.length > 0 && (
+        <div className="search-results-container">
+          {searchResults.slice(0, 10).map((item) => (
+            <div key={item.id} className="search-result-item" onClick={() => navigate(`/${item.media_type}/${item.id}`)}>
+              {item.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w92${item.poster_path}`}
+                  alt={item.title || item.name}
+                  className="search-result-poster"
+                />
+              ) : (
+                <div className="search-result-poster-placeholder" />
+              )}
+              <span>{item.title || item.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <MovieCarousel
         title="Trending Movies"
         subtitle="See what everyone's watching this week"

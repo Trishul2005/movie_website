@@ -57,7 +57,10 @@ function MovieDetails() {
           credentials: "include", // Required to send the cookie
         });
 
-        if (!userRes.ok) throw new Error("Not logged in");
+        if (!userRes.ok) {
+          navigate("/");
+          throw new Error("Not logged in");
+        }
         const userData = await userRes.json();
         setUser(userData);
 
@@ -127,7 +130,7 @@ function MovieDetails() {
         popularity: movie.popularity,
         vote_average: movie.vote_average,
         vote_count: movie.vote_count,
-        media_type: movie.media_type,
+        media_type: mediaType,
       }),
     });
 
@@ -137,7 +140,7 @@ function MovieDetails() {
     if (response.ok) {
       setInWatchlist(!inWatchlist); // set watchlist status to opposite
 
-      alert(data.message);
+      
     } else {
       alert(data.error);
     }

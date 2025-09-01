@@ -1,22 +1,33 @@
 import Login from './Login.jsx';
 import Register from './Register.jsx';
+import { useState } from 'react';
 
 function TempLogin() {
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
-    <div className="login-page">
-      <div className="login-left">
-        <h1>Welcome to MovieRankrr 🎬</h1>
-        <p>Discover and rank your favorite movies.</p>
-        <img
-          src="/illustration.svg" // Replace with your image path
-          alt="login visual"
-          className="login-illustration"
-        />
+    <div className="auth-page">
+      {/* Branding / Intro */}
+      <div className="auth-header">
+        <h1><span className="brand-title">MovieRankrr</span></h1>
+        <p className="tagline">Find your next fave with the help of custom AI recommendations made just for you.</p>
       </div>
-      <div className="login-right">
-        <Login />
-        <Register />
+
+      {/* Auth Card */}
+      <div className="auth-card">
+        <h2>{isLogin ? 'Welcome Back' : 'Join Today'}</h2>
+        {isLogin ? <Login /> : <Register />}
+        <p className="toggle-text">
+          {isLogin ? "Don't have an account?" : "Already a member?"}{' '}
+          <span onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? 'Sign Up' : 'Log In'}
+          </span>
+        </p>
       </div>
+
+      {/* Footer */}
+      <p className="auth-footer">
+      </p>
     </div>
   );
 }

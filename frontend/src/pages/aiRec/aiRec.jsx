@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../homepage/Navbar";
 import "../../cssFiles/aiRec.css";
+import { useNavigate } from "react-router-dom";
 
 function AiRec() {
   const [user, setUser] = useState(null);
@@ -10,6 +11,7 @@ function AiRec() {
   const [error, setError] = useState(null);
   const [messages, setMessages] = useState([]); // chat history
   const messagesEndRef = useRef(null); // ref for auto-scroll
+  const navigate = useNavigate();
 
   const handleQuery = async () => {
     if (!query.trim()) return;
@@ -29,12 +31,13 @@ function AiRec() {
       });
 
       const movies_json = await queryRes.json();
+      let user_watchlist = user ? user.watchlist || [] : [];
 
       // 2️⃣ Call RAG with those movies
       const res = await fetch("/api/chatbot/rag-response", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, movies_json }),
+        body: JSON.stringify({ query, movies_json, user_watchlist }),
       });
 
       if (!res.ok) throw new Error(`RAG request failed: ${res.status}`);
@@ -63,7 +66,10 @@ function AiRec() {
           credentials: "include", // Required to send the cookie
         });
 
-        if (!res.ok) throw new Error("Not logged in");
+        if (!res.ok) {
+          navigate("/");  
+          throw new Error("Not logged in");
+        }
 
         const user = await res.json();
         console.log(user);
@@ -95,7 +101,7 @@ function AiRec() {
         {messages.length === 0 ? (
           // Landing Page (just input centered)
           <div className="airec-landing">
-            <h1 className="airec-title">🎬 AI Movie Recommender</h1>
+            <h1 className="airec-title">AI Movie Recommender</h1>
             <input
               type="text"
               className="airec-input-box"
@@ -112,6 +118,7 @@ function AiRec() {
             >
               {loading ? <span className="spinner"></span> : "Search"}
             </button>
+            <p className="airec-subtitle">Note: For the best results add at least 5 movies to your watchlist</p>
           </div>
         ) : (
           // Chat Interface

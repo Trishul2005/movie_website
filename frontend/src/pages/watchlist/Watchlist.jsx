@@ -27,7 +27,11 @@ function Watchlist() {
           credentials: "include", // Required to send the cookie
         });
 
-        if (!res.ok) throw new Error("Not logged in");
+        if (!res.ok) {
+          navigate("/");
+          throw new Error("Not logged in");
+        }
+        
 
         const user = await res.json();
         console.log(user);
@@ -210,6 +214,8 @@ function Watchlist() {
                   src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
                   alt={movie.title}
                   className="wl-movie-poster"
+                  onClick={() => navigate(`/${movie.media_type}/${movie.movieId}`)}
+                  style={{ cursor: "pointer" }}
                 />
                 <h3 className="wl-movie-title">{movie.title}</h3>
 

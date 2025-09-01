@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import clapperboard from "../../assets/clapperboard.svg";
 import "../../cssFiles/Navbar.css";
 
 function Navbar({ user }) {
@@ -14,7 +15,13 @@ function Navbar({ user }) {
   return (
     <nav className="navbar">
       <div className="navbar-logo" onClick={() => navigate("/homepage")}>
-        🎬 Movie<span className="logo-black">Rankrr</span>
+        {/* Black Clapperboard SVG */}
+        <img
+          src={clapperboard}
+          alt="clapperboard"
+          style={{ width: "28px", height: "28px", marginRight: "0px", verticalAlign: "middle", marginBottom: "4px" }}
+        />{" "}
+        Movie<span className="logo-black">Rankrr</span>
       </div>
 
       <div className="navbar-menu">
@@ -22,7 +29,7 @@ function Navbar({ user }) {
           <li onClick={() => navigate("/homepage")}>Home</li>
           <li onClick={() => navigate("/airecommendation")}>AI</li>
           <li onClick={() => navigate("/watchlist")}>Watchlist</li>
-          <li>{username}</li>
+          <li style={{ cursor: "default" }}>{username}</li>
         </ul>
 
         {/* Hamburger Icon outside the ul */}

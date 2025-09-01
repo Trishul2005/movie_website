@@ -128,7 +128,7 @@ router.post("/query-movies", async (req, res) => {
 // RAG response
 router.post("/rag-response", async (req, res) => {
   try {
-    const { query, movies_json } = req.body;
+    const { query, movies_json, user_watchlist } = req.body;
 
     if (!movies_json || movies_json.length === 0) {
       return res.status(400).json({ error: "No movies provided for RAG." });
@@ -150,7 +150,7 @@ ${moviesList}
 - Recommend only from the movies listed above.
 - Do not invent new movies. 
 - Do not skip movies unnecessarily. 
-- Make the "reason" field friendly, bubbly, and conversational.
+- Make the "reason" field friendly, bubbly, and conversational. This is the user's current watchlist ${JSON.stringify(user_watchlist)}. Try to make comments on how shows are similar to things on their watchlist.
 - Return 3–5 recommendations in strict JSON:
 
 {

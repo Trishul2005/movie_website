@@ -20,7 +20,7 @@ body, html {
 }
 
 .all-background {
-  background: linear-gradient(194deg,#e083fe,#c1caed,#eea893);
+  background: linear-gradient(194deg,#7989cf,#b7c3f1,#748deb);
   background-size: 180% 180%;
   animation: gradient-animation 24s ease infinite;
 }
@@ -56,70 +56,52 @@ body, html {
   font-size: clamp(2rem, 6vw, 4rem);
   line-height: 1.2;
   font-weight: 800;
-  color: #ffffff; /* Clean white text */
+  color: #ffffff;
   position: relative;
   margin-bottom: 20px;
 
-  /* Glow behind the text */
+  /* Glow behind the text (blue tones) */
   text-shadow: 
-    0 0 10px rgba(168, 85, 247, 0.7), 
-    0 0 20px rgba(147, 51, 234, 0.6),
-    0 0 40px rgba(109, 40, 217, 0.5);
+    0 0 10px rgba(59, 130, 246, 0.7),   /* #3B82F6 */
+    0 0 20px rgba(37, 99, 235, 0.6),    /* #2563EB */
+    0 0 40px rgba(29, 78, 216, 0.5);    /* #1D4ED8 */
+
+  animation: glowPulse 3s infinite ease-in-out;
 }
 
 .hero-subtitle {
   font-size: clamp(1rem, 3vw, 1.5rem);
-  color: #e0e0ff; /* Softer white */
+  color: #dbeafe; /* soft light blue */
   margin-bottom: 30px;
   text-shadow: 
-    0 0 6px rgba(147, 51, 234, 0.6), 
-    0 0 15px rgba(109, 40, 217, 0.5);
+    0 0 6px rgba(37, 99, 235, 0.6), 
+    0 0 15px rgba(29, 78, 216, 0.5);
 }
 
 /* Glow "breathing" effect */
 @keyframes glowPulse {
   0% {
     text-shadow: 
-      0 0 10px rgba(168, 85, 247, 0.6), 
-      0 0 20px rgba(147, 51, 234, 0.5),
-      0 0 40px rgba(109, 40, 217, 0.4);
+      0 0 10px rgba(59, 130, 246, 0.6), 
+      0 0 20px rgba(37, 99, 235, 0.5),
+      0 0 40px rgba(29, 78, 216, 0.4);
   }
   50% {
     text-shadow: 
-      0 0 20px rgba(168, 85, 247, 1), 
-      0 0 40px rgba(147, 51, 234, 0.8),
-      0 0 60px rgba(109, 40, 217, 0.6);
+      0 0 20px rgba(59, 130, 246, 1), 
+      0 0 40px rgba(37, 99, 235, 0.8),
+      0 0 60px rgba(29, 78, 216, 0.6);
   }
   100% {
     text-shadow: 
-      0 0 10px rgba(168, 85, 247, 0.6), 
-      0 0 20px rgba(147, 51, 234, 0.5),
-      0 0 40px rgba(109, 40, 217, 0.4);
+      0 0 10px rgba(59, 130, 246, 0.6), 
+      0 0 20px rgba(37, 99, 235, 0.5),
+      0 0 40px rgba(29, 78, 216, 0.4);
   }
 }
 
-.hero-title {
-  animation: glowPulse 4s ease-in-out infinite;
-}
-
-
-.hero-title {
-  animation: glowPulse 3s infinite ease-in-out;
-}
-
-
-.hero-title {
-  animation: glowPulse 3s infinite ease-in-out;
-}
-
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
 .cta-button {
-  background: linear-gradient(90deg, #9333ea, #6d28d9);
+  background: linear-gradient(90deg, #3B82F6, #2563EB);
   color: white;
   padding: 12px 28px;
   border: none;
@@ -132,13 +114,13 @@ body, html {
 
 .cta-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0px 8px 20px rgba(147, 51, 234, 0.4);
+  box-shadow: 0px 8px 20px rgba(37, 99, 235, 0.4);
 }
 
 .secondary-button {
   background: transparent;
-  border: 2px solid #9333ea;
-  color: #9333ea;
+  border: 2px solid #3B82F6;
+  color: #3B82F6;
   padding: 12px 28px;
   border-radius: 30px;
   font-size: 1rem;
@@ -148,6 +130,6 @@ body, html {
 }
 
 .secondary-button:hover {
-  background: #9333ea;
+  background: #3B82F6;
   color: white;
 }

@@ -34,7 +34,6 @@ function Login() {
 
       if (response.ok) {
 
-        alert('Login successful!');
         navigate(`/homepage`);
         
       } else {

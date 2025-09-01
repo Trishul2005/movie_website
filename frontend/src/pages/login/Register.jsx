@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -6,7 +7,7 @@ function Register() {
     email: "",
     password: ""
   });
-
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      let response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
         credentials: 'include',
         headers: {
@@ -29,14 +30,26 @@ function Register() {
         body: JSON.stringify(formData)
       });
 
+      response = await fetch('/api/users/login', {
+        method: 'POST',
+        credentials: "include",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email, // allow both username or email
+          password: formData.password,
+        }),
+      });
+
       const data = await response.json();
+      console.log("Response from server login:", data);
 
       if (response.ok) {
-        setMessage(data.message);
-      } 
-      
-      else {
-        setMessage(data.message || data.error || "Registration failed");
+
+        navigate(`/homepage`);
+        
+      } else {
+        console.log(data.message || 'Login failed');
       }
 
     } catch (err) {

@@ -20,7 +20,10 @@ function Homepage() {
           credentials: "include", // Required to send the cookie
         });
 
-        if (!res.ok) throw new Error("Not logged in");
+        if (!res.ok) {
+          navigate("/");
+          throw new Error("Not logged in");
+        }
 
         const user = await res.json();
         setUser(user); // Your React state

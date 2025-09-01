@@ -28,7 +28,7 @@
 }
 
 .logo-black {
-  color: black; /* only "Rankrr" becomes black */
+  color: rgb(0, 0, 0); /* only "Rankrr" becomes black */
 }
 
 /* Links container */

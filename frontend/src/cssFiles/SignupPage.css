@@ -1,85 +1,163 @@
-.login-page {
-  display: flex;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-}
-
-.login-left {
-  flex: 1;
-  background: linear-gradient(135deg, #2e2a72, #00b4db);
-  color: white;
-  padding: 60px;
+/* Whole page */
+.auth-page {
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
+  background: linear-gradient(0deg, #4a67d0, #c1caed, #1e44cc);
+  background-size: 180% 180%;
+  animation: gradient-animation 8s ease infinite;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  text-align: center;
+  overflow: hidden; /* prevent white scrollbars */
 }
 
-.login-left h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+/* Header */
+.auth-header {
+  margin-bottom: 2rem;
+  padding: 0 1rem;
 }
 
-.login-left p {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #4a67d0, #c1caed, #1e44cc, #4a67d0);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move 5s ease infinite;
 }
 
-.login-illustration {
-  width: 100%;
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Auth Card */
+.auth-card {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  width: 90%; /* make it fluid */
   max-width: 400px;
-  margin-top: auto;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  animation: fadeIn 0.6s ease;
+  margin: 0 auto;
 }
 
-.login-right {
-  flex: 1;
-  background: #fff;
+/* Forms */
+.auth-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px;
+  gap: 1rem;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
+.auth-form input {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.login-form label {
-  margin-top: 20px;
-  font-weight: 600;
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.login-form input {
-  margin-top: 8px;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.auth-form input:focus {
+  border-color: #034fff;
+  background: rgba(255, 255, 255, 0.25);
 }
 
-.login-form button {
-  margin-top: 30px;
-  padding: 14px;
-  font-size: 1rem;
-  background: #2e2a72;
-  color: white;
+/* Buttons */
+.auth-form button {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
   border: none;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #4a67d0, #1e44cc);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.login-form button:hover {
-  background: #1b1855;
+.auth-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(30, 68, 204, 0.4);
 }
 
-.register-link {
-  margin-top: 20px;
+.auth-form button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Toggle */
+.toggle-text {
+  margin-top: 1.2rem;
   font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
 }
-.register-link a {
-  color: #2e2a72;
-  text-decoration: none;
-  font-weight: bold;
+
+.toggle-text span {
+  color: #034fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-text span:hover {
+  color: #1d4ed8;
+}
+
+/* Footer */
+.auth-footer {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  padding: 0 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .auth-card {
+    padding: 1.5rem 1rem; /* smaller padding on mobile */
+    width: 85%;
+  }
 }
